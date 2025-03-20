@@ -22,4 +22,8 @@ public class StoreService {
     public List<Store> 상품목록() {
         return storeRepository.findAll();
     }
+
+    public Store 상세보기(int id) {
+        return storeRepository.findbyId(id);
+    }
 }

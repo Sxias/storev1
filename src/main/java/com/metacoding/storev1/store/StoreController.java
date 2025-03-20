@@ -30,11 +30,11 @@ public class StoreController {
     }
 
     @GetMapping("/store/{id}")
-    public String detail(@PathVariable("id") int id) {
+    public String detail(@PathVariable("id") int id, HttpServletRequest request) {
         // 1. 조회
-
+        Store store = storeService.상세보기(id);
         // 2. req에 담기
-
+        request.setAttribute("model", store);
         // 3. 이동
         return "store/detail";
     }

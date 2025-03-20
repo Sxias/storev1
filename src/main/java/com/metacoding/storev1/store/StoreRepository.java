@@ -30,4 +30,10 @@ public class StoreRepository {
         Query query = em.createNativeQuery("select * from store_tb order by id desc", Store.class);
         return query.getResultList();
     }
+
+    public Store findbyId(int id) {
+        Query query = em.createNativeQuery("select * from store_tb where id = ? order by id desc", Store.class);
+        query.setParameter(1, id);
+        return (Store) query.getSingleResult();
+    }
 }

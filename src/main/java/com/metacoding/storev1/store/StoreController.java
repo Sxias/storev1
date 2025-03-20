@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller // IoC (Inversion of Control) -> hashset
@@ -45,11 +46,11 @@ public class StoreController {
     }
 
     @GetMapping("/store/{id}/update-form")
-    public String updateForm(@PathVariable("id") int id) {
+    public String updateForm(@PathVariable("id") int id, HttpServletRequest request) {
         // 1. 조회
-
+        Store store = storeService.상품수정화면(id);
         // 2. req에 담기
-
+        request.setAttribute("model", store);
         // 3. 이동
         return "store/update-form";
     }
@@ -57,7 +58,7 @@ public class StoreController {
     @PostMapping("/store/{id}/delete")
     public String delete(@PathVariable("id") int id) {
         // 1. 삭제
-
+        storeService.상품삭제(id);
         // 2. 리다이렉션
         return "redirect:/";
     }
@@ -73,9 +74,11 @@ public class StoreController {
     }
 
     @PostMapping("/store/{id}/update")
-    public String update(@PathVariable("id") int id) {
+    public String update(@PathVariable("id") int id, @RequestParam("name") String name,
+            @RequestParam("stock") int stock,
+            @RequestParam("price") int price) {
         // 1. 수정
-
+        storeService.상품수정(id, name, stock, price);
         // 2. 리다이렉션
         return "redirect:/store/" + id;
     }

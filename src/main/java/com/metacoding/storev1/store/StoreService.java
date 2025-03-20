@@ -26,4 +26,18 @@ public class StoreService {
     public Store 상세보기(int id) {
         return storeRepository.findbyId(id);
     }
+
+    @Transactional
+    public void 상품삭제(int id) {
+        storeRepository.delete(id);
+    }
+
+    public Store 상품수정화면(int id) {
+        return storeRepository.findbyId(id);
+    }
+
+    @Transactional
+    public void 상품수정(int id, String name, int stock, int price) {
+        storeRepository.update(id, name, stock, price);
+    }
 }

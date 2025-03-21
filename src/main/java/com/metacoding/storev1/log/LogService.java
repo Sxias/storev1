@@ -13,8 +13,8 @@ public class LogService {
         this.logRepository = logRepository;
     }
 
-    public List<Log> 구매내역() {
-        return logRepository.findAll();
+    public List<LogResponse.ListPage> 구매목록() {
+        return logRepository.findAllJoinStore();
     }
 
 }

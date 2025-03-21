@@ -3,7 +3,6 @@ package com.metacoding.storev1.store;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -36,7 +35,11 @@ public class StoreRepository {
         Query query = em.createNativeQuery("select * from store_tb where id = ? order by id desc", Store.class);
         query.setParameter(1, id);
         // return : Object 객체 >> Downcasting 필요
-        return (Store) query.getSingleResult();
+        try {
+            return (Store) query.getSingleResult();
+        } catch (Exception e) { // NoResultException
+            return null;
+        }
     }
 
     public void delete(int id) {

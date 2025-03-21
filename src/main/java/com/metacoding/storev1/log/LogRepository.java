@@ -1,5 +1,6 @@
 package com.metacoding.storev1.log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -16,10 +17,18 @@ public class LogRepository {
         this.em = em;
     }
 
-    public List<Log> findAll() {
-        Query query = em.createNativeQuery(
-                "select * from log_tb order by id desc", Log.class);
-        return query.getResultList();
+    public List<LogResponse.ListPage> findAllJoinStore() {
+        List<LogResponse.ListPage> logList = new ArrayList<>();
+        String q = "SELECT lt.id, st.name, lt.qty, lt.total_price, lt.buyer FROM log_tb lt INNER JOIN store_tb st ON lt.store_id = st.id order by lt.id desc";
+        Query query = em.createNativeQuery(q);
+        List<Object[]> obsList = (List<Object[]>) query.getResultList(); // Object[] -> ROW
+
+        for (Object[] obs : obsList) {
+            LogResponse.ListPage log = new LogResponse.ListPage(
+                    (int) obs[0], (String) obs[1], (int) obs[2], (int) obs[3], (String) obs[4]);
+            logList.add(log);
+        }
+        return logList;
     }
 
 }

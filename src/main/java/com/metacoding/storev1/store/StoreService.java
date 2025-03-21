@@ -29,7 +29,14 @@ public class StoreService {
 
     @Transactional
     public void 상품삭제(int id) {
-        storeRepository.delete(id);
+        // 1. 상품 찾기
+        Store store = storeRepository.findbyId(id);
+        // 2. 없으면 예외
+        if (store == null)
+            throw new RuntimeException("상품이 존재하지 않습니다.");
+        // 3. 있으면 삭제
+        else
+            storeRepository.delete(id); // write(DML : Insert, Update, Delete)
     }
 
     public Store 상품수정화면(int id) {
@@ -38,6 +45,13 @@ public class StoreService {
 
     @Transactional
     public void 상품수정(int id, String name, int stock, int price) {
-        storeRepository.update(id, name, stock, price);
+        // 1. 상품 찾기
+        Store store = storeRepository.findbyId(id);
+        // 2. 없으면 예외
+        if (store == null)
+            throw new RuntimeException("상품이 존재하지 않습니다.");
+        // 3. 있으면 삭제
+        else
+            storeRepository.update(id, name, stock, price);
     }
 }

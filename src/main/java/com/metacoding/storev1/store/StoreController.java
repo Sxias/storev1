@@ -81,4 +81,5 @@ public class StoreController {
         // 2. 리다이렉션
         return "redirect:/store/" + id;
     }
+
 }

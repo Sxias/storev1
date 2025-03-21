@@ -11,10 +11,10 @@
         상품가격 : {{model.price}}원 <br>
         상품재고 : {{model.stock}}개 <br>
     </div>
-    <form action="#">
-        <input type="hidden" value="{{model.id}}">
-        <input type="text" placeholder="당신은 누구인가요?">
-        <input type="text" placeholder="Enter 개수">
+    <form action="/log/save", method="POST">
+        <input type="hidden" name="storeId" value="{{model.id}}">
+        <input type="text" name="buyer" placeholder="당신은 누구인가요?">
+        <input type="text" name="qty" placeholder="Enter 개수">
         <button type="submit">구매</button>
     </form>
 </section>

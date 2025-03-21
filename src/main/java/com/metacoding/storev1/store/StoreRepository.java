@@ -56,4 +56,5 @@ public class StoreRepository {
         query.setParameter(4, id);
         query.executeUpdate();
     }
+
 }

@@ -20,4 +20,8 @@ public class Store {
     private Integer price;
     private Integer stock;
 
+    public void 재고감소(int qty) {
+        this.stock = this.stock - qty;
+    }
+
 }
